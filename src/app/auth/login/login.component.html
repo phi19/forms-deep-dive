@@ -1,17 +1,29 @@
-<form>
+<form #form="ngForm" (submit)="onSubmit(form)">
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" />
+      <input id="email" type="email" name="email" ngModel autocomplete="email" required email />
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" />
+      <input
+        id="password"
+        type="password"
+        name="password"
+        ngModel
+        autocomplete="current-password"
+        required
+        minlength="6"
+      />
     </div>
 
     <button class="button">Login</button>
   </div>
+
+  @if (isFormInvalid(form)) {
+    <p class="control-error">Invalid values detected. Please check your inputs</p>
+  }
 </form>
