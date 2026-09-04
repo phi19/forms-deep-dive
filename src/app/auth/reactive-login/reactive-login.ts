@@ -1,5 +1,19 @@
-import { Component, computed } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+
+function mustContainQuestionMark(control: AbstractControl) {
+  if (control.value.includes('?')) {
+    return null;
+  }
+
+  return { doesNotContainQuestionMark: true };
+}
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -10,10 +24,10 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class ReactiveLogin {
   form = new FormGroup({
     email: new FormControl('', {
-      validators: [Validators.email, Validators.required],
+      validators: [Validators.required, Validators.email],
     }),
     password: new FormControl('', {
-      validators: [Validators.minLength(6), Validators.required],
+      validators: [Validators.required, Validators.minLength(6), mustContainQuestionMark],
     }),
   });
 
@@ -23,7 +37,7 @@ export class ReactiveLogin {
     console.log(email, password);
   }
 
-  private isInputInvalid(input: FormControl): boolean {
+  private isInputInvalid(input: AbstractControl): boolean {
     return input.touched && input.dirty && input.invalid;
   }
 
@@ -35,5 +49,4 @@ export class ReactiveLogin {
   get isPasswordInvalid(): boolean {
     return this.isInputInvalid(this.form.controls.password);
   }
-
 }
