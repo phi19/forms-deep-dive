@@ -3,12 +3,12 @@ import { FormsModule, NgForm, NgModel } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
   imports: [FormsModule],
+  selector: 'app-template-driven-login',
+  styleUrl: './template-driven-login.css',
+  templateUrl: './template-driven-login.html',
 })
-export class LoginComponent {
+export class TemplateDrivenLogin {
   private form = viewChild.required<NgForm>('form');
   private destroyRef = inject(DestroyRef);
 
