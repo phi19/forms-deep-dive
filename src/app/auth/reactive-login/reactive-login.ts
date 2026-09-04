@@ -13,5 +13,9 @@ export class ReactiveLogin {
     password: new FormControl(''),
   });
 
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.form);
+    const { email, password } = this.form.controls;
+    console.log(email, password);
+  }
 }
