@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { LoginComponent } from './auth/login/login.component';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',
+  imports: [LoginComponent],
 })
-export class App {
-  protected readonly title = signal('forms-deep-dive');
-}
+export class App {}
