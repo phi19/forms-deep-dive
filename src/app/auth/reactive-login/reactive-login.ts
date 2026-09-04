@@ -1,9 +1,17 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
-  imports: [],
+  imports: [ReactiveFormsModule],
   selector: 'app-reactive-login',
   styleUrl: './reactive-login.css',
   templateUrl: './reactive-login.html',
 })
-export class ReactiveLogin {}
+export class ReactiveLogin {
+  form = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl(''),
+  });
+
+  onSubmit() {}
+}
