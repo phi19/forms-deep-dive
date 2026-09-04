@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -21,5 +21,9 @@ export class LoginComponent {
 
   isFormInvalid(form: NgForm): boolean {
     return form.submitted && form.form.invalid;
+  }
+
+  isInputInvalid(input: NgModel): boolean {
+    return (input.touched && input.dirty && input.invalid) ?? false;
   }
 }
