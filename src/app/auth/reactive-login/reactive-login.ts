@@ -1,13 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../auth-service';
 
-function mustContainQuestionMark(control: AbstractControl) {
+function mustContainQuestionMarkValidator(control: AbstractControl): ValidationErrors | null {
   if (control.value.includes('?')) {
     return null;
   }
@@ -22,23 +24,25 @@ function mustContainQuestionMark(control: AbstractControl) {
   templateUrl: './reactive-login.html',
 })
 export class ReactiveLogin {
+  private authService = inject(AuthService);
+
   form = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
+      asyncValidators: [this.authService.checkEmailExistsValidator()],
     }),
     password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6), mustContainQuestionMark],
+      validators: [Validators.required, Validators.minLength(6), mustContainQuestionMarkValidator],
     }),
   });
 
   onSubmit() {
-    console.log(this.form);
     const { email, password } = this.form.controls;
     console.log(email, password);
   }
 
   private isInputInvalid(input: AbstractControl): boolean {
-    return input.touched && input.dirty && input.invalid;
+    return (input.touched || input.dirty) && input.invalid;
   }
 
   // NOTE: the computed function doesn't work here because this.form.controls isn't a signal
