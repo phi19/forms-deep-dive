@@ -10,6 +10,7 @@ import { AuthService } from '../auth-service';
 import { mustContainQuestionMarkValidator } from '../../validators/must-contain-question-mark-validator';
 import { uniqueEmailValidator } from '../../validators/unique-email-validator';
 import { debounceTime } from 'rxjs';
+import { fetchStoredEmail, storeEmail } from '../../utils/store';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -22,7 +23,7 @@ export class ReactiveLogin implements OnInit {
   private destroyRef = inject(DestroyRef);
 
   form = new FormGroup({
-    email: new FormControl('', {
+    email: new FormControl(fetchStoredEmail(), {
       validators: [Validators.required, Validators.email],
       asyncValidators: [uniqueEmailValidator(this.authService)],
     }),
@@ -32,17 +33,13 @@ export class ReactiveLogin implements OnInit {
   });
 
   ngOnInit(): void {
-    const stringifiedSavedForm = window.localStorage.getItem('saved-login-form');
-
-    if (stringifiedSavedForm) {
-      const savedForm = JSON.parse(stringifiedSavedForm);
-      this.form.patchValue({ email: savedForm.email });
-    }
-
     const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
       next: (form) => {
-        const loginForm = JSON.stringify({ email: form['email'] });
-        window.localStorage.setItem('saved-login-form', loginForm);
+        const email = form.email;
+
+        if (typeof email === 'string') {
+          storeEmail(email);
+        }
       },
     });
 
