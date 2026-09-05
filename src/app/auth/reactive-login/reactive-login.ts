@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -9,6 +9,7 @@ import {
 import { AuthService } from '../auth-service';
 import { mustContainQuestionMarkValidator } from '../../validators/must-contain-question-mark-validator';
 import { uniqueEmailValidator } from '../../validators/unique-email-validator';
+import { debounceTime } from 'rxjs';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -16,8 +17,9 @@ import { uniqueEmailValidator } from '../../validators/unique-email-validator';
   styleUrl: './reactive-login.css',
   templateUrl: './reactive-login.html',
 })
-export class ReactiveLogin {
+export class ReactiveLogin implements OnInit {
   private authService = inject(AuthService);
+  private destroyRef = inject(DestroyRef);
 
   form = new FormGroup({
     email: new FormControl('', {
@@ -28,6 +30,26 @@ export class ReactiveLogin {
       validators: [Validators.required, Validators.minLength(6), mustContainQuestionMarkValidator],
     }),
   });
+
+  ngOnInit(): void {
+    const stringifiedSavedForm = window.localStorage.getItem('saved-login-form');
+
+    if (stringifiedSavedForm) {
+      const savedForm = JSON.parse(stringifiedSavedForm);
+      this.form.patchValue({ email: savedForm.email });
+    }
+
+    const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
+      next: (form) => {
+        const loginForm = JSON.stringify({ email: form['email'] });
+        window.localStorage.setItem('saved-login-form', loginForm);
+      },
+    });
+
+    this.destroyRef.onDestroy(() => {
+      subscription.unsubscribe();
+    });
+  }
 
   onSubmit() {
     const { email, password } = this.form.controls;
