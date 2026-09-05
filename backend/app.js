@@ -16,15 +16,16 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/check-email-exists', async (req, res) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+app.post('/check-email-exists', async (req, res) => {
+  console.log('Checking email:', req.body.email);
+  await new Promise((resolve) => setTimeout(resolve, 100));
 
-  const existingEmail = 'test@exmaple.com';
+  const existingEmail = 'test@example.com';
 
   if (req.body.email === existingEmail) {
     res.status(409).json({ message: 'Already existing email', email: req.body.email });
   } else {
-    res.status(200).json({ places: placesData });
+    res.status(200).send({ message: 'success' });
   }
 });
 
