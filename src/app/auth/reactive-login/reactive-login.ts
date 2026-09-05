@@ -4,18 +4,11 @@ import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../auth-service';
-
-function mustContainQuestionMarkValidator(control: AbstractControl): ValidationErrors | null {
-  if (control.value.includes('?')) {
-    return null;
-  }
-
-  return { doesNotContainQuestionMark: true };
-}
+import { mustContainQuestionMarkValidator } from '../../validators/must-contain-question-mark-validator';
+import { uniqueEmailValidator } from '../../validators/unique-email-validator';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -29,7 +22,7 @@ export class ReactiveLogin {
   form = new FormGroup({
     email: new FormControl('', {
       validators: [Validators.required, Validators.email],
-      asyncValidators: [this.authService.uniqueEmailValidator()],
+      asyncValidators: [uniqueEmailValidator(this.authService)],
     }),
     password: new FormControl('', {
       validators: [Validators.required, Validators.minLength(6), mustContainQuestionMarkValidator],
