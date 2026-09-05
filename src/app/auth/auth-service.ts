@@ -31,7 +31,7 @@ export class AuthService {
       );
   }
 
-  checkEmailExistsValidator(): AsyncValidatorFn {
+  uniqueEmailValidator(): AsyncValidatorFn {
     return (control: AbstractControl): Observable<{ emailExists: boolean } | null> => {
       if (!control.value) {
         return of(null);
