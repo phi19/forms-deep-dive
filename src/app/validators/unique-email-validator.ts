@@ -1,5 +1,15 @@
 import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, first, Observable, of, switchMap } from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  first,
+  map,
+  Observable,
+  of,
+  switchMap,
+  timer,
+} from 'rxjs';
 import { AuthService } from '../auth/auth-service';
 
 export function uniqueEmailValidator(authService: AuthService): AsyncValidatorFn {
@@ -8,15 +18,10 @@ export function uniqueEmailValidator(authService: AuthService): AsyncValidatorFn
       return of(null);
     }
 
-    return control.valueChanges.pipe(
-      // Wait 500ms after the user stops typing
-      debounceTime(500),
-      // Ignore duplicate consecutive values
-      distinctUntilChanged(),
-      // Cancel previous requests if a new value arrives
-      switchMap((email) => authService.checkEmailExists(email)),
-      // Complete the stream once a result as arrived
-      first(),
+    return timer(500).pipe(
+      switchMap(() => authService.checkEmailExists(control.value)),
+      map((res) => (res.emailExists ? { emailExists: true } : null)),
+      catchError(() => of(null)),
     );
   };
 }
