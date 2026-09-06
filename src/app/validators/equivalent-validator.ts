@@ -1,9 +1,9 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export const equivalentValidator = (
+export function equivalentValidator(
   firstControlName: string,
   secondControlName: string,
-): ValidatorFn => {
+): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const firstControl = control.get(firstControlName);
     const secondControl = control.get(secondControlName);
@@ -14,4 +14,4 @@ export const equivalentValidator = (
 
     return null;
   };
-};
+}

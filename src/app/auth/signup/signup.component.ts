@@ -10,6 +10,7 @@ import { uniqueEmailValidator } from '../../validators/unique-email-validator';
 import { AuthService } from '../auth-service';
 import { passwordStrengthValidator } from '../../validators/password-strength-validator';
 import { equivalentValidator } from '../../validators/equivalent-validator';
+import { eitherOrTrueValidator } from '../../validators/either-or-true-validator';
 
 @Component({
   selector: 'app-signup',
@@ -53,9 +54,19 @@ export class SignupComponent {
       termsAndConditions: new FormControl(false, {
         validators: [Validators.requiredTrue],
       }),
+      discoveryThroughGoogle: new FormControl(false),
+      discoveryThroughReferral: new FormControl(false),
+      discoveryThroughOther: new FormControl(false),
     },
     {
-      validators: [equivalentValidator('password', 'passwordConfirmation')],
+      validators: [
+        equivalentValidator('password', 'passwordConfirmation'),
+        eitherOrTrueValidator(
+          'discoveryThroughGoogle',
+          'discoveryThroughReferral',
+          'discoveryThroughOther',
+        ),
+      ],
     },
   );
 
@@ -189,5 +200,13 @@ export class SignupComponent {
     return (
       this.isTermsAndConditionsInvalid && this.form.controls.termsAndConditions.errors?.['required']
     );
+  }
+
+  get discoveryHasManyOptionsSelected(): boolean {
+    return this.form.errors?.['discoveryHasManyOptionsSelected'];
+  }
+
+  get discoveryHasOnlyOneOptionSelected(): boolean {
+    return this.form.errors?.['discoveryHasOnlyOneOptionSelected'];
   }
 }

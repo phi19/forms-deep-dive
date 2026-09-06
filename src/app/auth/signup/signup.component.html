@@ -207,19 +207,43 @@
   <fieldset>
     <legend>How did you find us?</legend>
     <div class="control">
-      <input type="checkbox" id="google" name="acquisition" value="google" />
+      <input
+        type="checkbox"
+        id="google"
+        name="acquisition"
+        value="google"
+        formControlName="discoveryThroughGoogle"
+      />
       <label for="google">Google</label>
     </div>
 
     <div class="control">
-      <input type="checkbox" id="friend" name="acquisition" value="friend" />
+      <input
+        type="checkbox"
+        id="friend"
+        name="acquisition"
+        value="friend"
+        formControlName="discoveryThroughReferral"
+      />
       <label for="friend">Referred by friend</label>
     </div>
 
     <div class="control">
-      <input type="checkbox" id="other" name="acquisition" value="other" />
+      <input
+        type="checkbox"
+        id="other"
+        name="acquisition"
+        value="other"
+        formControlName="discoveryThroughOther"
+      />
       <label for="other">Other</label>
     </div>
+
+    @if (discoveryHasManyOptionsSelected) {
+      <p class="control-error">You must select only one option.</p>
+    } @else if (discoveryHasOnlyOneOptionSelected) {
+      <p class="control-error">You must select one option.</p>
+    }
   </fieldset>
 
   <div class="control-row">
