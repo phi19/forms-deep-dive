@@ -5,6 +5,14 @@
   <div class="control">
     <label for="email">Email</label>
     <input id="email" type="email" name="email" autocomplete="email" formControlName="email" />
+
+    @if (isEmailEmpty) {
+      <p class="control-error">Please enter an email address.</p>
+    } @else if (isEmailTaken) {
+      <p class="control-error">That email is already taken.</p>
+    } @else if (isEmailInvalid) {
+      <p class="control-error">Please enter a valid email address.</p>
+    }
   </div>
 
   <div class="control-row">
