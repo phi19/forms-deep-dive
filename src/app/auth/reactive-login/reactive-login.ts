@@ -6,11 +6,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { debounceTime } from 'rxjs';
+
 import { AuthService } from '../auth-service';
 import { mustContainQuestionMarkValidator } from '../../validators/must-contain-question-mark-validator';
-import { uniqueEmailValidator } from '../../validators/unique-email-validator';
-import { debounceTime } from 'rxjs';
 import { fetchStoredEmail, storeEmail } from '../../utils/store';
+import { existingEmailValidator } from '../../validators/existing-email-validator';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -25,7 +26,7 @@ export class ReactiveLogin implements OnInit {
   form = new FormGroup({
     email: new FormControl(fetchStoredEmail(), {
       validators: [Validators.required, Validators.email],
-      asyncValidators: [uniqueEmailValidator(this.authService)],
+      asyncValidators: [existingEmailValidator(this.authService)],
     }),
     password: new FormControl('', {
       validators: [Validators.required, Validators.minLength(6), mustContainQuestionMarkValidator],
