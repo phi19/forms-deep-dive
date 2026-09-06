@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { uniqueEmailValidator } from '../../validators/unique-email-validator';
 import { AuthService } from '../auth-service';
-import { passwordStrengthValidator } from '../../validators/password-strength.validator';
+import { passwordStrengthValidator } from '../../validators/password-strength-validator';
 
 @Component({
   selector: 'app-signup',
