@@ -49,6 +49,7 @@ export class SignupComponent {
       city: new FormControl('', {
         validators: [Validators.required],
       }),
+      role: new FormControl('student', {}),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
