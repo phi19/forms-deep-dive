@@ -54,7 +54,12 @@
         type="password"
         name="confirm-password"
         autocomplete="new-password"
+        formControlName="passwordConfirmation"
       />
+
+      @if (isPasswordConfirmationDifferentFromPassword) {
+        <p class="control-error">The passwords do not match. Try again</p>
+      }
     </div>
   </div>
 

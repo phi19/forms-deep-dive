@@ -9,6 +9,7 @@ import {
 import { uniqueEmailValidator } from '../../validators/unique-email-validator';
 import { AuthService } from '../auth-service';
 import { passwordStrengthValidator } from '../../validators/password-strength-validator';
+import { equivalentValidator } from '../../validators/equivalent-validator';
 
 @Component({
   selector: 'app-signup',
@@ -20,15 +21,21 @@ import { passwordStrengthValidator } from '../../validators/password-strength-va
 export class SignupComponent {
   private authService = inject(AuthService);
 
-  form = new FormGroup({
-    email: new FormControl('', {
-      validators: [Validators.required, Validators.email],
-      asyncValidators: [uniqueEmailValidator(this.authService)],
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required, Validators.minLength(6), passwordStrengthValidator],
-    }),
-  });
+  form = new FormGroup(
+    {
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.email],
+        asyncValidators: [uniqueEmailValidator(this.authService)],
+      }),
+      password: new FormControl('', {
+        validators: [Validators.required, Validators.minLength(6), passwordStrengthValidator],
+      }),
+      passwordConfirmation: new FormControl(''),
+    },
+    {
+      validators: [equivalentValidator('password', 'passwordConfirmation')],
+    },
+  );
 
   private isInputInvalid(input: AbstractControl): boolean {
     return (input.touched || input.dirty) && input.invalid;
@@ -68,5 +75,16 @@ export class SignupComponent {
 
   get doesPasswordLackNumberCharacters(): boolean {
     return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksNumber'];
+  }
+
+  get isPasswordConfirmationInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.passwordConfirmation);
+  }
+
+  get isPasswordConfirmationDifferentFromPassword(): boolean {
+    return (
+      this.isPasswordConfirmationInvalid &&
+      this.form.controls.passwordConfirmation.errors?.['notEqual']
+    );
   }
 }
