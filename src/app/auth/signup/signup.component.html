@@ -79,7 +79,9 @@
           formControlName="firstName"
         />
 
-        @if (isFirstNameTooShort) {
+        @if (isFirstNameEmpty) {
+          <p class="control-error">The first name field cannot be empty.</p>
+        } @else if (isFirstNameTooShort) {
           <p class="control-error">The first name is too short (at least 2 characters long).</p>
         } @else if (isFirstNameInvalid) {
           <p class="control-error">Please enter a valid first name.</p>
@@ -96,7 +98,9 @@
           formControlName="lastName"
         />
 
-        @if (isLastNameTooShort) {
+        @if (isLastNameEmpty) {
+          <p class="control-error">The last name field cannot be empty.</p>
+        } @else if (isLastNameTooShort) {
           <p class="control-error">The last name is too short (at least 2 characters long).</p>
         } @else if (isLastNameInvalid) {
           <p class="control-error">Please enter a valid last name.</p>
