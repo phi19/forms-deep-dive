@@ -28,7 +28,7 @@ export class SignupComponent {
         asyncValidators: [uniqueEmailValidator(this.authService)],
       }),
       password: new FormControl('', {
-        validators: [Validators.required, Validators.minLength(6), passwordStrengthValidator],
+        validators: [Validators.minLength(6), passwordStrengthValidator],
       }),
       passwordConfirmation: new FormControl(''),
     },
@@ -55,10 +55,6 @@ export class SignupComponent {
 
   get isPasswordInvalid(): boolean {
     return this.isInputInvalid(this.form.controls.password);
-  }
-
-  get isPasswordEmpty(): boolean {
-    return this.isPasswordInvalid && this.form.controls.password.errors?.['required'];
   }
 
   get isPasswordTooSmall(): boolean {
