@@ -108,6 +108,27 @@
       </div>
     </div>
 
+    <div class="control">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        type="text"
+        id="phoneNumber"
+        name="phoneNumber"
+        autocomplete="tel"
+        formControlName="phoneNumber"
+      />
+
+      @if (isPhoneNumberEmpty) {
+        <p class="control-error">The phone number field is required.</p>
+      } @else if (doesPhoneNumberNotFollowPattern) {
+        <p class="control-error">
+          The phone number must contain the country identifier (e.g. +351).
+        </p>
+      } @else if (isPhoneNumberInvalid) {
+        <p class="control-error">Please enter a valid phone number.</p>
+      }
+    </div>
+
     <fieldset>
       <legend>Your Address</legend>
 
@@ -130,23 +151,18 @@
         </div>
 
         <div class="control">
-          <label for="number">Number</label>
+          <label for="streetNumber">Number</label>
           <input
             type="text"
-            id="number"
-            name="number"
-            autocomplete="tel"
-            formControlName="phoneNumber"
+            id="streetNumber"
+            name="streetNumber"
+            formControlName="streetNumber"
           />
 
-          @if (isPhoneNumberEmpty) {
-            <p class="control-error">The phone number field is required.</p>
-          } @else if (doesPhoneNumberNotFollowPattern) {
-            <p class="control-error">
-              The phone number must contain the country identifier (e.g. +351).
-            </p>
-          } @else if (isPhoneNumberInvalid) {
-            <p class="control-error">Please enter a valid phone number.</p>
+          @if (isStreetNumberEmpty) {
+            <p class="control-error">The street number field is required.</p>
+          } @else if (isStreetNumberInvalid) {
+            <p class="control-error">Please enter a valid street number.</p>
           }
         </div>
       </div>

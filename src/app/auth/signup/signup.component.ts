@@ -38,12 +38,13 @@ export class SignupComponent {
       lastName: new FormControl('', {
         validators: [Validators.required, Validators.minLength(2)],
       }),
-      streetAddress: new FormControl('', {
-        validators: [Validators.required],
-      }),
       phoneNumber: new FormControl('', {
         validators: [Validators.required, Validators.pattern(/^[+]{1}[- ()0-9]{7,16}$/)],
       }),
+      streetAddress: new FormControl('', {
+        validators: [Validators.required],
+      }),
+      streetNumber: new FormControl('', { validators: [Validators.required] }),
       postalCode: new FormControl('', {
         validators: [Validators.required],
       }),
@@ -156,14 +157,6 @@ export class SignupComponent {
     return this.isLastNameInvalid && this.form.controls.lastName.errors?.['minlength'];
   }
 
-  get isStreetAddressInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.streetAddress);
-  }
-
-  get isStreetAddressEmpty(): boolean {
-    return this.isStreetAddressInvalid && this.form.controls.streetAddress.errors?.['required'];
-  }
-
   get isPhoneNumberInvalid(): boolean {
     return this.isInputInvalid(this.form.controls.phoneNumber);
   }
@@ -174,6 +167,22 @@ export class SignupComponent {
 
   get doesPhoneNumberNotFollowPattern(): boolean {
     return this.isPhoneNumberInvalid && this.form.controls.phoneNumber.errors?.['pattern'];
+  }
+
+  get isStreetAddressInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.streetAddress);
+  }
+
+  get isStreetAddressEmpty(): boolean {
+    return this.isStreetAddressInvalid && this.form.controls.streetAddress.errors?.['required'];
+  }
+
+  get isStreetNumberInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.streetNumber);
+  }
+
+  get isStreetNumberEmpty(): boolean {
+    return this.isStreetNumberInvalid && this.form.controls.streetNumber.errors?.['required'];
   }
 
   get isPostalCodeInvalid(): boolean {
