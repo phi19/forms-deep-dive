@@ -37,6 +37,19 @@ export class SignupComponent {
     },
   );
 
+  resetForm(): void {
+    this.form.reset();
+  }
+
+  submitForm(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    
+    const controls = this.form.value;
+    console.log(controls, 14941);
+  }
+
   private isInputInvalid(input: AbstractControl): boolean {
     return (input.touched || input.dirty) && input.invalid;
   }
