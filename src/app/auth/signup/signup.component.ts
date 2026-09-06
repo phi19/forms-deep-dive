@@ -31,6 +31,12 @@ export class SignupComponent {
         validators: [Validators.minLength(6), passwordStrengthValidator],
       }),
       passwordConfirmation: new FormControl(''),
+      firstName: new FormControl('', {
+        validators: [Validators.minLength(2)],
+      }),
+      lastName: new FormControl('', {
+        validators: [Validators.minLength(2)],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -45,7 +51,7 @@ export class SignupComponent {
     if (this.form.invalid) {
       return;
     }
-    
+
     const controls = this.form.value;
     console.log(controls, 14941);
   }
@@ -95,5 +101,21 @@ export class SignupComponent {
       this.isPasswordConfirmationInvalid &&
       this.form.controls.passwordConfirmation.errors?.['notEqual']
     );
+  }
+
+  get isFirstNameInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.firstName);
+  }
+
+  get isFirstNameTooShort(): boolean {
+    return this.isFirstNameInvalid && this.form.controls.firstName.errors?.['minlength'];
+  }
+
+  get isLastNameInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.lastName);
+  }
+
+  get isLastNameTooShort(): boolean {
+    return this.isLastNameInvalid && this.form.controls.lastName.errors?.['minlength'];
   }
 }

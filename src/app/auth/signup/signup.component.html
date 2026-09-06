@@ -58,7 +58,9 @@
       />
 
       @if (isPasswordConfirmationDifferentFromPassword) {
-        <p class="control-error">The passwords do not match. Try again</p>
+        <p class="control-error">The passwords do not match.</p>
+      } @else if (isPasswordConfirmationInvalid) {
+        <p class="control-error">Please enter a valid password confirmation.</p>
       }
     </div>
   </div>
@@ -69,12 +71,36 @@
     <div class="control-row">
       <div class="control">
         <label for="first-name">First Name</label>
-        <input type="text" id="first-name" name="first-name" autocomplete="given-name" />
+        <input
+          type="text"
+          id="first-name"
+          name="first-name"
+          autocomplete="given-name"
+          formControlName="firstName"
+        />
+
+        @if (isFirstNameTooShort) {
+          <p class="control-error">The first name is too short (at least 2 characters long).</p>
+        } @else if (isFirstNameInvalid) {
+          <p class="control-error">Please enter a valid first name.</p>
+        }
       </div>
 
       <div class="control">
         <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" name="last-name" autocomplete="family-name" />
+        <input
+          type="text"
+          id="last-name"
+          name="last-name"
+          autocomplete="family-name"
+          formControlName="lastName"
+        />
+
+        @if (isLastNameTooShort) {
+          <p class="control-error">The last name is too short (at least 2 characters long).</p>
+        } @else if (isLastNameInvalid) {
+          <p class="control-error">Please enter a valid last name.</p>
+        }
       </div>
     </div>
 
