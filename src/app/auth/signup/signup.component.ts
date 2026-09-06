@@ -50,6 +50,9 @@ export class SignupComponent {
         validators: [Validators.required],
       }),
       role: new FormControl('student', {}),
+      termsAndConditions: new FormControl(false, {
+        validators: [Validators.requiredTrue],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -176,5 +179,15 @@ export class SignupComponent {
 
   get isCityEmpty(): boolean {
     return this.isCityInvalid && this.form.controls.city.errors?.['required'];
+  }
+
+  private get isTermsAndConditionsInvalid(): boolean {
+    return this.form.controls.termsAndConditions.invalid;
+  }
+
+  get isTermsAndConditionsFalse(): boolean {
+    return (
+      this.isTermsAndConditionsInvalid && this.form.controls.termsAndConditions.errors?.['required']
+    );
   }
 }

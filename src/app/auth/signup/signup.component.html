@@ -225,11 +225,20 @@
   <div class="control-row">
     <div class="control">
       <label for="terms-and-conditions">
-        <input type="checkbox" id="terms-and-conditions" name="terms" />
+        <input
+          type="checkbox"
+          id="terms-and-conditions"
+          name="terms"
+          formControlName="termsAndConditions"
+        />
         I agree to the terms and conditions
       </label>
     </div>
   </div>
+
+  @if (isTermsAndConditionsFalse) {
+    <p class="control-error">You must agree to terms and conditions.</p>
+  }
 
   <p class="form-actions">
     <button type="reset" class="button button-flat">Reset</button>
