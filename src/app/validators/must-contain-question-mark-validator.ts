@@ -9,13 +9,3 @@ export function mustContainQuestionMarkValidator(
 
   return { doesNotContainQuestionMark: true };
 }
-
-/**
- * function checkEmailExistsValidator(control: AbstractControl) {
-  return this.userService
-    .isEmailTaken(control.value)
-    .pipe(map((isTaken) => (isTaken ? { emailTaken: true } : null)));
-}
-
- */
-// fix(css): color the input if it's invalid

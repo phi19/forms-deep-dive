@@ -45,4 +45,28 @@ export class SignupComponent {
   get isEmailTaken(): boolean {
     return this.isEmailInvalid && this.form.controls.email.errors?.['emailExists'];
   }
+
+  get isPasswordInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.password);
+  }
+
+  get isPasswordEmpty(): boolean {
+    return this.isPasswordInvalid && this.form.controls.password.errors?.['required'];
+  }
+
+  get isPasswordTooSmall(): boolean {
+    return this.isPasswordInvalid && this.form.controls.password.errors?.['minlength'];
+  }
+
+  get doesPasswordLackUpperCaseCharacters(): boolean {
+    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksUpperCase'];
+  }
+
+  get doesPasswordLackLowerCaseCharacters(): boolean {
+    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksLowerCase'];
+  }
+
+  get doesPasswordLackNumberCharacters(): boolean {
+    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksNumber'];
+  }
 }

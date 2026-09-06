@@ -18,7 +18,33 @@
   <div class="control-row">
     <div class="control">
       <label for="password">Password</label>
-      <input id="password" type="password" name="password" autocomplete="new-password" />
+      <input
+        id="password"
+        type="password"
+        name="password"
+        autocomplete="new-password"
+        formControlName="password"
+      />
+
+      @if (isPasswordInvalid) {
+        <p class="control-error">Please enter a valid password.</p>
+      }
+
+      @if (isPasswordEmpty || isPasswordTooSmall) {
+        <p class="control-error">- must be at least 6 characters long</p>
+      }
+
+      @if (doesPasswordLackUpperCaseCharacters) {
+        <p class="control-error">- must have uppercase characters</p>
+      }
+
+      @if (doesPasswordLackLowerCaseCharacters) {
+        <p class="control-error">- must have lowercase characters</p>
+      }
+
+      @if (doesPasswordLackNumberCharacters) {
+        <p class="control-error">- must have number characters</p>
+      }
     </div>
 
     <div class="control">

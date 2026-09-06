@@ -1,4 +1,3 @@
-
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function passwordStrengthValidator(control: AbstractControl): ValidationErrors | null {
@@ -7,6 +6,15 @@ export function passwordStrengthValidator(control: AbstractControl): ValidationE
   const hasLowerCase = /[a-z]+/.test(value);
   const hasNumber = /[0-9]+/.test(value);
 
-  const isValid = hasUpperCase && hasLowerCase && hasNumber;
-  return !isValid ? { passwordStrength: true } : null;
+  const destination = {
+    ...(!hasUpperCase ? { lacksUpperCase: !hasUpperCase } : {}),
+    ...(!hasLowerCase ? { lacksLowerCase: !hasLowerCase } : {}),
+    ...(!hasNumber ? { lacksNumber: !hasNumber } : {}),
+  };
+
+  if (Object.keys(destination).length > 0) {
+    return destination;
+  } else {
+    return null;
+  }
 }
