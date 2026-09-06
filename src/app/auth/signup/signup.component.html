@@ -110,7 +110,19 @@
       <div class="control-row">
         <div class="control">
           <label for="street">Street</label>
-          <input type="text" id="street" name="street" autocomplete="street-address" />
+          <input
+            type="text"
+            id="street"
+            name="street"
+            autocomplete="street-address"
+            formControlName="streetAddress"
+          />
+
+          @if (isStreetAddressEmpty) {
+            <p class="control-error">The street address field is required.</p>
+          } @else if (isStreetAddressInvalid) {
+            <p class="control-error">Please enter a valid street address.</p>
+          }
         </div>
 
         <div class="control">

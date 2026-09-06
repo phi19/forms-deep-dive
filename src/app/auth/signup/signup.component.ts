@@ -37,6 +37,9 @@ export class SignupComponent {
       lastName: new FormControl('', {
         validators: [Validators.minLength(2)],
       }),
+      streetAddress: new FormControl('', {
+        validators: [Validators.required],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -117,5 +120,13 @@ export class SignupComponent {
 
   get isLastNameTooShort(): boolean {
     return this.isLastNameInvalid && this.form.controls.lastName.errors?.['minlength'];
+  }
+
+  get isStreetAddressInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.streetAddress);
+  }
+
+  get isStreetAddressEmpty(): boolean {
+    return this.isStreetAddressInvalid && this.form.controls.streetAddress.errors?.['required'];
   }
 }
