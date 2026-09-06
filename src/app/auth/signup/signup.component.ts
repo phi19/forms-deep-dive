@@ -46,6 +46,9 @@ export class SignupComponent {
       postalCode: new FormControl('', {
         validators: [Validators.required],
       }),
+      city: new FormControl('', {
+        validators: [Validators.required],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -164,5 +167,13 @@ export class SignupComponent {
 
   get isPostalCodeEmpty(): boolean {
     return this.isPostalCodeInvalid && this.form.controls.postalCode.errors?.['required'];
+  }
+
+  get isCityInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.city);
+  }
+
+  get isCityEmpty(): boolean {
+    return this.isCityInvalid && this.form.controls.city.errors?.['required'];
   }
 }

@@ -171,7 +171,19 @@
 
         <div class="control">
           <label for="city">City</label>
-          <input type="text" id="city" name="city" autocomplete="address-level2" />
+          <input
+            type="text"
+            id="city"
+            name="city"
+            autocomplete="address-level2"
+            formControlName="city"
+          />
+
+          @if (isCityEmpty) {
+            <p class="control-error">The city field is required.</p>
+          } @else if (isCityInvalid) {
+            <p class="control-error">Please enter a valid city.</p>
+          }
         </div>
       </div>
     </fieldset>
