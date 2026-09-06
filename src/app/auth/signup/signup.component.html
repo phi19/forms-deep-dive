@@ -142,7 +142,9 @@
           @if (isPhoneNumberEmpty) {
             <p class="control-error">The phone number field is required.</p>
           } @else if (doesPhoneNumberNotFollowPattern) {
-            <p class="control-error">The phone number must contain the country identifier (e.g.  +351).</p>
+            <p class="control-error">
+              The phone number must contain the country identifier (e.g. +351).
+            </p>
           } @else if (isPhoneNumberInvalid) {
             <p class="control-error">Please enter a valid phone number.</p>
           }
@@ -152,7 +154,19 @@
       <div class="control-row">
         <div class="control">
           <label for="postal-code">Postal Code</label>
-          <input type="text" id="postal-code" name="postal-code" autocomplete="postal-code" />
+          <input
+            type="text"
+            id="postal-code"
+            name="postal-code"
+            autocomplete="postal-code"
+            formControlName="postalCode"
+          />
+
+          @if (isPostalCodeEmpty) {
+            <p class="control-error">The postal code field is required.</p>
+          } @else if (isPostalCodeInvalid) {
+            <p class="control-error">Please enter a valid postal code.</p>
+          }
         </div>
 
         <div class="control">

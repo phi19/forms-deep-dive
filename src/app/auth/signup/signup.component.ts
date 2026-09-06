@@ -43,6 +43,9 @@ export class SignupComponent {
       phoneNumber: new FormControl('', {
         validators: [Validators.required, Validators.pattern(/^[+]{1}[- ()0-9]{7,16}$/)],
       }),
+      postalCode: new FormControl('', {
+        validators: [Validators.required],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -153,5 +156,13 @@ export class SignupComponent {
 
   get doesPhoneNumberNotFollowPattern(): boolean {
     return this.isPhoneNumberInvalid && this.form.controls.phoneNumber.errors?.['pattern'];
+  }
+
+  get isPostalCodeInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.postalCode);
+  }
+
+  get isPostalCodeEmpty(): boolean {
+    return this.isPostalCodeInvalid && this.form.controls.postalCode.errors?.['required'];
   }
 }
