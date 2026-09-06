@@ -152,12 +152,7 @@
 
         <div class="control">
           <label for="streetNumber">Number</label>
-          <input
-            type="text"
-            id="streetNumber"
-            name="streetNumber"
-            formControlName="streetNumber"
-          />
+          <input type="text" id="streetNumber" name="streetNumber" formControlName="streetNumber" />
 
           @if (isStreetNumberEmpty) {
             <p class="control-error">The street number field is required.</p>

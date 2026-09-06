@@ -51,13 +51,16 @@ export class SignupComponent {
       city: new FormControl('', {
         validators: [Validators.required],
       }),
-      role: new FormControl('student', {}),
-      termsAndConditions: new FormControl(false, {
-        validators: [Validators.requiredTrue],
-      }),
+      role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>(
+        'student',
+        {},
+      ),
       discoveryThroughGoogle: new FormControl(false),
       discoveryThroughReferral: new FormControl(false),
       discoveryThroughOther: new FormControl(false),
+      termsAndConditions: new FormControl(false, {
+        validators: [Validators.requiredTrue],
+      }),
     },
     {
       validators: [
