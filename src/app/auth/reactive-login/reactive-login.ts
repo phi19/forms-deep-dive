@@ -33,6 +33,11 @@ export class ReactiveLogin implements OnInit {
   });
 
   ngOnInit(): void {
+    const initialEmailValue = fetchStoredEmail();
+    if (initialEmailValue !== '') {
+      this.form.controls.email.markAsDirty();
+    }
+
     const subscription = this.form.valueChanges.pipe(debounceTime(500)).subscribe({
       next: (form) => {
         const email = form.email;
