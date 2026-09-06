@@ -40,6 +40,9 @@ export class SignupComponent {
       streetAddress: new FormControl('', {
         validators: [Validators.required],
       }),
+      phoneNumber: new FormControl('', {
+        validators: [Validators.required, Validators.pattern(/^[+]{1}[- ()0-9]{7,16}$/)],
+      }),
     },
     {
       validators: [equivalentValidator('password', 'passwordConfirmation')],
@@ -51,12 +54,14 @@ export class SignupComponent {
   }
 
   submitForm(): void {
+    const controls = this.form.value;
+    console.log(this.form, 14941);
+
     if (this.form.invalid) {
       return;
     }
 
-    const controls = this.form.value;
-    console.log(controls, 14941);
+    console.log('SUCCESS');
   }
 
   private isInputInvalid(input: AbstractControl): boolean {
@@ -136,5 +141,17 @@ export class SignupComponent {
 
   get isStreetAddressEmpty(): boolean {
     return this.isStreetAddressInvalid && this.form.controls.streetAddress.errors?.['required'];
+  }
+
+  get isPhoneNumberInvalid(): boolean {
+    return this.isInputInvalid(this.form.controls.phoneNumber);
+  }
+
+  get isPhoneNumberEmpty(): boolean {
+    return this.isPhoneNumberInvalid && this.form.controls.phoneNumber.errors?.['required'];
+  }
+
+  get doesPhoneNumberNotFollowPattern(): boolean {
+    return this.isPhoneNumberInvalid && this.form.controls.phoneNumber.errors?.['pattern'];
   }
 }

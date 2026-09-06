@@ -131,7 +131,21 @@
 
         <div class="control">
           <label for="number">Number</label>
-          <input type="text" id="number" name="number" autocomplete="tel" />
+          <input
+            type="text"
+            id="number"
+            name="number"
+            autocomplete="tel"
+            formControlName="phoneNumber"
+          />
+
+          @if (isPhoneNumberEmpty) {
+            <p class="control-error">The phone number field is required.</p>
+          } @else if (doesPhoneNumberNotFollowPattern) {
+            <p class="control-error">The phone number must contain the country identifier (e.g.  +351).</p>
+          } @else if (isPhoneNumberInvalid) {
+            <p class="control-error">Please enter a valid phone number.</p>
+          }
         </div>
       </div>
 
