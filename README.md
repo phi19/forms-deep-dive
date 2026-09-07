@@ -1,6 +1,6 @@
 # Forms Deep Dive
 
-<img width="930" height="408" alt="image" src="https://github.com/user-attachments/assets/214a4446-7782-4e11-90ed-0eeba2883ef1" />
+<img width="935" height="411" alt="Demo Screenshot" src="https://github.com/user-attachments/assets/0dde3af4-6f14-43ef-a2b4-cddfd375903d" />
 
 A hands-on Angular project exploring form handling and validation, covering both template-driven and reactive forms.
 
