@@ -6,8 +6,6 @@ export function eitherOrTrueValidator(...controlNames: string[]): ValidatorFn {
       .map((name) => control.get(name)?.value)
       .filter((value) => !!value);
 
-    console.log(controls, 591);
-
     return {
       discoveryHasManyOptionsSelected: controls.length > 1,
       discoveryHasOnlyOneOptionSelected: controls.length === 0,
