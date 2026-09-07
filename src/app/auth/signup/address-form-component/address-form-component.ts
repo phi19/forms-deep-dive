@@ -8,7 +8,6 @@ import { isInputInvalid } from '../../../utils/isInputInvalid';
   selector: 'app-address-form-component',
   styleUrl: './address-form-component.css',
   templateUrl: './address-form-component.html',
-  providers: [SignupFormService],
 })
 export class AddressFormComponent {
   private signupFormService = inject(SignupFormService);

@@ -4,13 +4,19 @@ import { SignupFormService } from './signup-form-service';
 import { PasswordsFormComponent } from './passwords-form-component/passwords-form-component';
 import { AddressFormComponent } from './address-form-component/address-form-component';
 import { isInputInvalid } from '../../utils/isInputInvalid';
+import { DiscoveryFormComponent } from './discovery-form-component/discovery-form-component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
-  imports: [ReactiveFormsModule, PasswordsFormComponent, AddressFormComponent],
+  imports: [
+    ReactiveFormsModule,
+    PasswordsFormComponent,
+    AddressFormComponent,
+    DiscoveryFormComponent,
+  ],
   providers: [SignupFormService],
 })
 export class SignupComponent {
@@ -88,24 +94,6 @@ export class SignupComponent {
   get isTermsAndConditionsFalse(): boolean {
     return (
       this.isTermsAndConditionsInvalid && this.form.controls.termsAndConditions.errors?.['required']
-    );
-  }
-
-  get isDiscoveryInvalid(): boolean {
-    return this.form.controls.discovery.invalid;
-  }
-
-  get hasDiscoveryManyOptionsSelected(): boolean {
-    return (
-      this.isDiscoveryInvalid &&
-      this.form.controls.discovery.errors?.['discoveryHasManyOptionsSelected']
-    );
-  }
-
-  get hasDiscoveryOnlyOneOptionSelected(): boolean {
-    return (
-      this.isDiscoveryInvalid &&
-      this.form.controls.discovery.errors?.['discoveryHasOnlyOneOptionSelected']
     );
   }
 }
