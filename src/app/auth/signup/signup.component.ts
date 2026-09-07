@@ -67,13 +67,7 @@ export class SignupComponent {
         discoveryThroughOther: new FormControl(false),
       },
       {
-        validators: [
-          eitherOrTrueValidator(
-            'discoveryThroughGoogle',
-            'discoveryThroughReferral',
-            'discoveryThroughOther',
-          ),
-        ],
+        validators: [eitherOrTrueValidator()],
       },
     ),
     termsAndConditions: new FormControl(false, {

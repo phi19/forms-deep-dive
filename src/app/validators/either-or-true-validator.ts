@@ -1,14 +1,20 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function eitherOrTrueValidator(...controlNames: string[]): ValidatorFn {
+export function eitherOrTrueValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const controls = controlNames
-      .map((name) => control.get(name)?.value)
-      .filter((value) => !!value);
+    if (!(control instanceof FormGroup)) {
+      return null;
+    }
 
-    return {
-      discoveryHasManyOptionsSelected: controls.length > 1,
-      discoveryHasOnlyOneOptionSelected: controls.length === 0,
-    };
+    const selectedCount = Object.values(control.controls).filter((control) => control.value).length;
+
+    if (selectedCount > 1) {
+      return { discoveryHasManyOptionsSelected: true };
+    }
+    if (selectedCount === 0) {
+      return { discoveryHasOnlyOneOptionSelected: true };
+    }
+
+    return null;
   };
 }
