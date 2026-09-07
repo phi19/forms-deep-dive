@@ -20,18 +20,17 @@ Rather than focusing on a single application feature, I used several form scenar
 
 ## Features
 
-* Template-driven forms
-* Reactive forms
-* `FormsModule`
-* `ReactiveFormsModule`
-* Form controls and form groups
-* Built-in validators
-* Custom synchronous validators
-* Asynchronous validators
-* Validation states
+- Template-driven forms
+- Reactive forms
+- `FormsModule`
+- `ReactiveFormsModule`
+- Form controls and form groups
+- Built-in validators
+- Custom synchronous validators
+- Asynchronous validators
+- Validation states
 
 ---
-
 
 ## What I Practiced
 
@@ -47,15 +46,16 @@ Built forms using Angular's reactive forms API, defining form controls, groups, 
 
 Worked with Angular's built-in validators to enforce common form requirements such as:
 
-* Required fields
-* Minimum and maximum values
-* Minimum and maximum length
-* Pattern validation
-* Email validation
+- Required fields
+- Minimum and maximum values
+- Minimum and maximum length
+- Pattern validation
+- Email validation
 
 ### Custom Validators
 
 Implemented custom synchronous validators to handle validation rules that go beyond Angular's built-in validators. Created:
+
 - an equivalentValidator to validate that two form controls contain equivalent values, using password confirmation as the main use case.
 - a passwordStrengthValidator to validate whether a password satisfies a set of strength requirements.
 - an eitherOrTrueValidator to validate groups of boolean controls, ensuring that at least one of several checkboxes is selected.
@@ -72,16 +72,49 @@ This validator combines Angular's asynchronous validation APIs with a backend re
 
 ## Setup
 
-### Install dependencies
+### 1. Install frontend dependencies
+
+From the project root:
 
 ```bash
 npm install
 ```
 
-### Run the application
+### 2. Install backend dependencies
+
+Navigate to the backend directory:
 
 ```bash
-ng serve
+cd backend
+npm install
 ```
 
-Open `http://localhost:4200` in your browser.
+### 3. Start the backend
+
+For development, start the backend with **Nodemon**:
+
+```bash
+npm run dev
+```
+
+Alternatively, start it directly with Node:
+
+```bash
+npm start
+```
+
+### 4. Start the Angular application
+
+Open a new terminal in the project root and run:
+
+```bash
+npm start
+```
+
+The Angular application will be available at:
+
+```text
+http://localhost:4200
+```
+
+Make sure the backend is running before using the application.
