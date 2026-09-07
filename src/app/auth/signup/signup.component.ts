@@ -48,15 +48,17 @@ export class SignupComponent {
       phoneNumber: new FormControl('', {
         validators: [Validators.required, Validators.pattern(/^[+]{1}[- ()0-9]{7,16}$/)],
       }),
-      streetAddress: new FormControl('', {
-        validators: [Validators.required],
-      }),
-      streetNumber: new FormControl('', { validators: [Validators.required] }),
-      postalCode: new FormControl('', {
-        validators: [Validators.required],
-      }),
-      city: new FormControl('', {
-        validators: [Validators.required],
+      address: new FormGroup({
+        streetAddress: new FormControl('', {
+          validators: [Validators.required],
+        }),
+        streetNumber: new FormControl('', { validators: [Validators.required] }),
+        postalCode: new FormControl('', {
+          validators: [Validators.required],
+        }),
+        city: new FormControl('', {
+          validators: [Validators.required],
+        }),
       }),
       role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>(
         'student',
@@ -190,35 +192,44 @@ export class SignupComponent {
   }
 
   get isStreetAddressInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.streetAddress);
+    return this.isInputInvalid(this.form.controls.address.controls.streetAddress);
   }
 
   get isStreetAddressEmpty(): boolean {
-    return this.isStreetAddressInvalid && this.form.controls.streetAddress.errors?.['required'];
+    return (
+      this.isStreetAddressInvalid &&
+      this.form.controls.address.controls.streetAddress.errors?.['required']
+    );
   }
 
   get isStreetNumberInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.streetNumber);
+    return this.isInputInvalid(this.form.controls.address.controls.streetNumber);
   }
 
   get isStreetNumberEmpty(): boolean {
-    return this.isStreetNumberInvalid && this.form.controls.streetNumber.errors?.['required'];
+    return (
+      this.isStreetNumberInvalid &&
+      this.form.controls.address.controls.streetNumber.errors?.['required']
+    );
   }
 
   get isPostalCodeInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.postalCode);
+    return this.isInputInvalid(this.form.controls.address.controls.postalCode);
   }
 
   get isPostalCodeEmpty(): boolean {
-    return this.isPostalCodeInvalid && this.form.controls.postalCode.errors?.['required'];
+    return (
+      this.isPostalCodeInvalid &&
+      this.form.controls.address.controls.postalCode.errors?.['required']
+    );
   }
 
   get isCityInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.city);
+    return this.isInputInvalid(this.form.controls.address.controls.city);
   }
 
   get isCityEmpty(): boolean {
-    return this.isCityInvalid && this.form.controls.city.errors?.['required'];
+    return this.isCityInvalid && this.form.controls.address.controls.city.errors?.['required'];
   }
 
   private get isTermsAndConditionsInvalid(): boolean {
