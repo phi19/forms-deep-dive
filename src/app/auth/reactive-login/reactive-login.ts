@@ -12,6 +12,7 @@ import { AuthService } from '../auth-service';
 import { mustContainQuestionMarkValidator } from '../../validators/must-contain-question-mark-validator';
 import { fetchStoredEmail, storeEmail } from '../../utils/store';
 import { existingEmailValidator } from '../../validators/existing-email-validator';
+import { isInputInvalid } from '../../utils/isInputInvalid';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -59,16 +60,12 @@ export class ReactiveLogin implements OnInit {
     console.log(email, password);
   }
 
-  private isInputInvalid(input: AbstractControl): boolean {
-    return (input.touched || input.dirty) && input.invalid;
-  }
-
   // NOTE: the computed function doesn't work here because this.form.controls isn't a signal
   get isEmailInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.email);
+    return isInputInvalid(this.form.controls.email);
   }
 
   get isPasswordInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.password);
+    return isInputInvalid(this.form.controls.password);
   }
 }

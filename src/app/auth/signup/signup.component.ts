@@ -2,13 +2,15 @@ import { Component, inject } from '@angular/core';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { SignupFormService } from './signup-form-service';
 import { PasswordsFormComponent } from './passwords-form-component/passwords-form-component';
+import { AddressFormComponent } from './address-form-component/address-form-component';
+import { isInputInvalid } from '../../utils/isInputInvalid';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
-  imports: [ReactiveFormsModule, PasswordsFormComponent],
+  imports: [ReactiveFormsModule, PasswordsFormComponent, AddressFormComponent],
   providers: [SignupFormService],
 })
 export class SignupComponent {
@@ -31,12 +33,8 @@ export class SignupComponent {
     console.log('SUCCESS');
   }
 
-  private isInputInvalid(input: AbstractControl): boolean {
-    return (input.touched || input.dirty) && input.invalid;
-  }
-
   get isEmailInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.email);
+    return isInputInvalid(this.form.controls.email);
   }
 
   get isEmailEmpty(): boolean {
@@ -48,7 +46,7 @@ export class SignupComponent {
   }
 
   get isFirstNameInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.firstName);
+    return isInputInvalid(this.form.controls.firstName);
   }
 
   get isFirstNameEmpty(): boolean {
@@ -60,7 +58,7 @@ export class SignupComponent {
   }
 
   get isLastNameInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.lastName);
+    return isInputInvalid(this.form.controls.lastName);
   }
 
   get isLastNameEmpty(): boolean {
@@ -72,7 +70,7 @@ export class SignupComponent {
   }
 
   get isPhoneNumberInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.phoneNumber);
+    return isInputInvalid(this.form.controls.phoneNumber);
   }
 
   get isPhoneNumberEmpty(): boolean {
@@ -81,47 +79,6 @@ export class SignupComponent {
 
   get doesPhoneNumberNotFollowPattern(): boolean {
     return this.isPhoneNumberInvalid && this.form.controls.phoneNumber.errors?.['pattern'];
-  }
-
-  get isStreetAddressInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.address.controls.streetAddress);
-  }
-
-  get isStreetAddressEmpty(): boolean {
-    return (
-      this.isStreetAddressInvalid &&
-      this.form.controls.address.controls.streetAddress.errors?.['required']
-    );
-  }
-
-  get isStreetNumberInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.address.controls.streetNumber);
-  }
-
-  get isStreetNumberEmpty(): boolean {
-    return (
-      this.isStreetNumberInvalid &&
-      this.form.controls.address.controls.streetNumber.errors?.['required']
-    );
-  }
-
-  get isPostalCodeInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.address.controls.postalCode);
-  }
-
-  get isPostalCodeEmpty(): boolean {
-    return (
-      this.isPostalCodeInvalid &&
-      this.form.controls.address.controls.postalCode.errors?.['required']
-    );
-  }
-
-  get isCityInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.address.controls.city);
-  }
-
-  get isCityEmpty(): boolean {
-    return this.isCityInvalid && this.form.controls.address.controls.city.errors?.['required'];
   }
 
   private get isTermsAndConditionsInvalid(): boolean {

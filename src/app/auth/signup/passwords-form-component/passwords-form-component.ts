@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { SignupFormService } from '../signup-form-service';
+import { isInputInvalid } from '../../../utils/isInputInvalid';
 
 @Component({
   imports: [ReactiveFormsModule],
@@ -12,12 +13,8 @@ export class PasswordsFormComponent {
   private signupFormService = inject(SignupFormService);
   form = this.signupFormService.form;
 
-  private isInputInvalid(input: AbstractControl): boolean {
-    return (input.touched || input.dirty) && input.invalid;
-  }
-
   get isPasswordInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.passwords.controls.password);
+    return isInputInvalid(this.form.controls.passwords.controls.password);
   }
 
   get isPasswordTooSmall(): boolean {
@@ -48,7 +45,7 @@ export class PasswordsFormComponent {
   }
 
   get isPasswordConfirmationInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.passwords.controls.passwordConfirmation);
+    return isInputInvalid(this.form.controls.passwords.controls.passwordConfirmation);
   }
 
   get isPasswordConfirmationDifferentFromPassword(): boolean {

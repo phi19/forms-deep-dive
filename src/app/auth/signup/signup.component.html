@@ -14,7 +14,7 @@
       <p class="control-error">Please enter a valid email address.</p>
     }
   </div>
-  
+
   <app-passwords-form-component />
 
   <hr />
@@ -81,75 +81,7 @@
       }
     </div>
 
-    <fieldset formGroupName="address">
-      <legend>Your Address</legend>
-
-      <div class="control-row">
-        <div class="control">
-          <label for="street">Street</label>
-          <input
-            type="text"
-            id="street"
-            name="street"
-            autocomplete="street-address"
-            formControlName="streetAddress"
-          />
-
-          @if (isStreetAddressEmpty) {
-            <p class="control-error">The street address field is required.</p>
-          } @else if (isStreetAddressInvalid) {
-            <p class="control-error">Please enter a valid street address.</p>
-          }
-        </div>
-
-        <div class="control">
-          <label for="streetNumber">Number</label>
-          <input type="text" id="streetNumber" name="streetNumber" formControlName="streetNumber" />
-
-          @if (isStreetNumberEmpty) {
-            <p class="control-error">The street number field is required.</p>
-          } @else if (isStreetNumberInvalid) {
-            <p class="control-error">Please enter a valid street number.</p>
-          }
-        </div>
-      </div>
-
-      <div class="control-row">
-        <div class="control">
-          <label for="postal-code">Postal Code</label>
-          <input
-            type="text"
-            id="postal-code"
-            name="postal-code"
-            autocomplete="postal-code"
-            formControlName="postalCode"
-          />
-
-          @if (isPostalCodeEmpty) {
-            <p class="control-error">The postal code field is required.</p>
-          } @else if (isPostalCodeInvalid) {
-            <p class="control-error">Please enter a valid postal code.</p>
-          }
-        </div>
-
-        <div class="control">
-          <label for="city">City</label>
-          <input
-            type="text"
-            id="city"
-            name="city"
-            autocomplete="address-level2"
-            formControlName="city"
-          />
-
-          @if (isCityEmpty) {
-            <p class="control-error">The city field is required.</p>
-          } @else if (isCityInvalid) {
-            <p class="control-error">Please enter a valid city.</p>
-          }
-        </div>
-      </div>
-    </fieldset>
+    <app-address-form-component />
   </div>
 
   <hr />
