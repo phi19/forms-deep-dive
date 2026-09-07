@@ -1,25 +1,14 @@
 import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { uniqueEmailValidator } from '../../validators/unique-email-validator';
-import { AuthService } from '../auth-service';
-import { passwordStrengthValidator } from '../../validators/password-strength-validator';
-import { equivalentValidator } from '../../validators/equivalent-validator';
-import { eitherOrTrueValidator } from '../../validators/either-or-true-validator';
+import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { SignupFormService } from './signup-form-service';
+import { PasswordsFormComponent } from './passwords-form-component/passwords-form-component';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PasswordsFormComponent],
   providers: [SignupFormService],
 })
 export class SignupComponent {
@@ -56,48 +45,6 @@ export class SignupComponent {
 
   get isEmailTaken(): boolean {
     return this.isEmailInvalid && this.form.controls.email.errors?.['emailExists'];
-  }
-
-  get isPasswordInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.passwords.controls.password);
-  }
-
-  get isPasswordTooSmall(): boolean {
-    return (
-      this.isPasswordInvalid && this.form.controls.passwords.controls.password.errors?.['minlength']
-    );
-  }
-
-  get doesPasswordLackUpperCaseCharacters(): boolean {
-    return (
-      this.isPasswordInvalid &&
-      this.form.controls.passwords.controls.password.errors?.['lacksUpperCase']
-    );
-  }
-
-  get doesPasswordLackLowerCaseCharacters(): boolean {
-    return (
-      this.isPasswordInvalid &&
-      this.form.controls.passwords.controls.password.errors?.['lacksLowerCase']
-    );
-  }
-
-  get doesPasswordLackNumberCharacters(): boolean {
-    return (
-      this.isPasswordInvalid &&
-      this.form.controls.passwords.controls.password.errors?.['lacksNumber']
-    );
-  }
-
-  get isPasswordConfirmationInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.passwords.controls.passwordConfirmation);
-  }
-
-  get isPasswordConfirmationDifferentFromPassword(): boolean {
-    return (
-      this.isPasswordConfirmationInvalid &&
-      this.form.controls.passwords.controls.passwordConfirmation.errors?.['notEqual']
-    );
   }
 
   get isFirstNameInvalid(): boolean {
