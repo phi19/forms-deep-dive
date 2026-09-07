@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
+  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -60,12 +61,8 @@ export class SignupComponent {
       }),
     }),
     role: new FormControl<'student' | 'teacher' | 'employee' | 'founder' | 'other'>('student', {}),
-    discovery: new FormGroup(
-      {
-        discoveryThroughGoogle: new FormControl(false),
-        discoveryThroughReferral: new FormControl(false),
-        discoveryThroughOther: new FormControl(false),
-      },
+    discovery: new FormArray(
+      [new FormControl(false), new FormControl(false), new FormControl(false)],
       {
         validators: [eitherOrTrueValidator()],
       },
@@ -235,11 +232,21 @@ export class SignupComponent {
     );
   }
 
-  get discoveryHasManyOptionsSelected(): boolean {
-    return this.form.controls.discovery.errors?.['discoveryHasManyOptionsSelected'];
+  get isDiscoveryInvalid(): boolean {
+    return this.form.controls.discovery.invalid;
   }
 
-  get discoveryHasOnlyOneOptionSelected(): boolean {
-    return this.form.controls.discovery.errors?.['discoveryHasOnlyOneOptionSelected'];
+  get hasDiscoveryManyOptionsSelected(): boolean {
+    return (
+      this.isDiscoveryInvalid &&
+      this.form.controls.discovery.errors?.['discoveryHasManyOptionsSelected']
+    );
+  }
+
+  get hasDiscoveryOnlyOneOptionSelected(): boolean {
+    return (
+      this.isDiscoveryInvalid &&
+      this.form.controls.discovery.errors?.['discoveryHasOnlyOneOptionSelected']
+    );
   }
 }

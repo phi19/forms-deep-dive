@@ -1,12 +1,18 @@
-import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+} from '@angular/forms';
 
 export function eitherOrTrueValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    if (!(control instanceof FormGroup)) {
+    if (!(control instanceof FormArray)) {
       return null;
     }
 
-    const selectedCount = Object.values(control.controls).filter((control) => control.value).length;
+    const selectedCount = control.controls.filter((control) => control.value).length;
 
     if (selectedCount > 1) {
       return { discoveryHasManyOptionsSelected: true };
