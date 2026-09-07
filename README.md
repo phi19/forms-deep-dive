@@ -1,59 +1,87 @@
-# FormsDeepDive
+# Forms Deep Dive
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.7.
+<img width="930" height="408" alt="image" src="https://github.com/user-attachments/assets/214a4446-7782-4e11-90ed-0eeba2883ef1" />
 
-## Development server
+A hands-on Angular project exploring form handling and validation, covering both template-driven and reactive forms.
 
-To start a local development server, run:
+Built as part of my Angular learning journey, with a focus on understanding the different approaches to form management, validation strategies, and asynchronous validation.
+
+---
+
+## Overview
+
+This web application is a collection of practical examples designed to explore how forms can be implemented and validated in Angular.
+
+The project compares **template-driven forms** and **reactive forms**, while also exploring Angular's validation APIs through built-in, custom, and asynchronous validators.
+
+Rather than focusing on a single application feature, I used several form scenarios to understand how Angular's form APIs work and when different approaches are appropriate.
+
+---
+
+## Features
+
+* Template-driven forms
+* Reactive forms
+* `FormsModule`
+* `ReactiveFormsModule`
+* Form controls and form groups
+* Built-in validators
+* Custom synchronous validators
+* Asynchronous validators
+* Validation states
+
+---
+
+
+## What I Practiced
+
+### Template-Driven Forms
+
+Explored Angular's template-driven approach to form management, using directives in the template to define form controls and validation rules.
+
+### Reactive Forms
+
+Built forms using Angular's reactive forms API, defining form controls, groups, and validation logic programmatically.
+
+### Built-in Validation
+
+Worked with Angular's built-in validators to enforce common form requirements such as:
+
+* Required fields
+* Minimum and maximum values
+* Minimum and maximum length
+* Pattern validation
+* Email validation
+
+### Custom Validators
+
+Implemented custom synchronous validators to handle validation rules that go beyond Angular's built-in validators. Created:
+- an equivalentValidator to validate that two form controls contain equivalent values, using password confirmation as the main use case.
+- a passwordStrengthValidator to validate whether a password satisfies a set of strength requirements.
+- an eitherOrTrueValidator to validate groups of boolean controls, ensuring that at least one of several checkboxes is selected.
+
+Creating these validators helped me apply the validator logic at the control level and at the form-group level.
+
+### Asynchronous Validation
+
+Implemented a custom uniqueEmailValidator that communicates with the backend to determine whether an email address is already registered.
+
+This validator combines Angular's asynchronous validation APIs with a backend request, allowing the form to reflect the asynchronous validation state while the request is being processed.
+
+---
+
+## Setup
+
+### Install dependencies
+
+```bash
+npm install
+```
+
+### Run the application
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Open `http://localhost:4200` in your browser.
