@@ -28,10 +28,17 @@ export class SignupComponent {
         validators: [Validators.required, Validators.email],
         asyncValidators: [uniqueEmailValidator(this.authService)],
       }),
-      password: new FormControl('', {
-        validators: [Validators.minLength(6), passwordStrengthValidator],
-      }),
-      passwordConfirmation: new FormControl(''),
+      passwords: new FormGroup(
+        {
+          password: new FormControl('', {
+            validators: [Validators.minLength(6), passwordStrengthValidator],
+          }),
+          passwordConfirmation: new FormControl(''),
+        },
+        {
+          validators: [equivalentValidator('password', 'passwordConfirmation')],
+        },
+      ),
       firstName: new FormControl('', {
         validators: [Validators.required, Validators.minLength(2)],
       }),
@@ -64,7 +71,6 @@ export class SignupComponent {
     },
     {
       validators: [
-        equivalentValidator('password', 'passwordConfirmation'),
         eitherOrTrueValidator(
           'discoveryThroughGoogle',
           'discoveryThroughReferral',
@@ -106,33 +112,44 @@ export class SignupComponent {
   }
 
   get isPasswordInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.password);
+    return this.isInputInvalid(this.form.controls.passwords.controls.password);
   }
 
   get isPasswordTooSmall(): boolean {
-    return this.isPasswordInvalid && this.form.controls.password.errors?.['minlength'];
+    return (
+      this.isPasswordInvalid && this.form.controls.passwords.controls.password.errors?.['minlength']
+    );
   }
 
   get doesPasswordLackUpperCaseCharacters(): boolean {
-    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksUpperCase'];
+    return (
+      this.isPasswordInvalid &&
+      this.form.controls.passwords.controls.password.errors?.['lacksUpperCase']
+    );
   }
 
   get doesPasswordLackLowerCaseCharacters(): boolean {
-    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksLowerCase'];
+    return (
+      this.isPasswordInvalid &&
+      this.form.controls.passwords.controls.password.errors?.['lacksLowerCase']
+    );
   }
 
   get doesPasswordLackNumberCharacters(): boolean {
-    return this.isPasswordInvalid && this.form.controls.password.errors?.['lacksNumber'];
+    return (
+      this.isPasswordInvalid &&
+      this.form.controls.passwords.controls.password.errors?.['lacksNumber']
+    );
   }
 
   get isPasswordConfirmationInvalid(): boolean {
-    return this.isInputInvalid(this.form.controls.passwordConfirmation);
+    return this.isInputInvalid(this.form.controls.passwords.controls.passwordConfirmation);
   }
 
   get isPasswordConfirmationDifferentFromPassword(): boolean {
     return (
       this.isPasswordConfirmationInvalid &&
-      this.form.controls.passwordConfirmation.errors?.['notEqual']
+      this.form.controls.passwords.controls.passwordConfirmation.errors?.['notEqual']
     );
   }
 
