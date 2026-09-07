@@ -1,28 +1,25 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-export function equivalentValidator(
-  firstControlName: string,
-  secondControlName: string,
-): ValidatorFn {
+export function equivalentValidator(controlName1: string, controlName2: string): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
-    const firstControl = control.get(firstControlName);
-    const secondControl = control.get(secondControlName);
+    const control1 = control.get(controlName1);
+    const control2 = control.get(controlName2);
 
-    if (!firstControl || !secondControl) {
+    if (!control1 || !control2) {
       return null;
     }
 
-    const firstControlValue = firstControl.value;
-    const secondControlValue = secondControl.value;
+    const val1 = control1.value;
+    const val2 = control2.value;
 
-    if (firstControlValue !== secondControlValue) {
-      secondControl.setErrors({ ...secondControl.errors, notEqual: true });
-    } else if (secondControl.hasError('notEqual')) {
-      const errors = { ...secondControl.errors };
+    if (val1 !== val2) {
+      control2.setErrors({ ...control2.errors, notEqual: true });
+    } else if (control2.hasError('notEqual')) {
+      const errors = { ...control2.errors };
       delete errors['notEqual'];
 
       const newErrors = Object.keys(errors).length > 0 ? errors : null;
-      secondControl.setErrors(newErrors);
+      control2.setErrors(newErrors);
     }
 
     return null;

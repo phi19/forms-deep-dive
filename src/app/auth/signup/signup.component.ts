@@ -81,6 +81,7 @@ export class SignupComponent {
     console.log(this.form, 14941);
 
     if (this.form.invalid) {
+      console.log("INVALID FORM")
       return;
     }
 
